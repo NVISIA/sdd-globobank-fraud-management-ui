@@ -12,11 +12,13 @@ description: "Task list template for feature implementation"
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
 ## Format: `[ID] [P?] [Story] Description`
+
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
 
 ## Path Conventions
+
 - **Single project**: `src/`, `tests/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
@@ -41,32 +43,37 @@ description: "Task list template for feature implementation"
   ============================================================================
 -->
 
-## Phase 1: Setup (Shared Infrastructure)
+## Phase 1: UI Foundation (Shared Infrastructure)
 
-**Purpose**: Project initialization and basic structure
+**Purpose**: Constitutional compliance setup and UI infrastructure
 
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T001 Create project structure per implementation plan (React/TypeScript setup)
+- [ ] T002 Initialize GloboBank Design System integration with approved version
+- [ ] T003 [P] Configure linting (ESLint), formatting (Prettier), and TypeScript
+- [ ] T004 [P] Setup accessibility testing tools (axe-core, @testing-library/jest-dom)
+- [ ] T005 [P] Configure test environment (Jest, Testing Library, Cypress)
+- [ ] T006 Setup OAuth 2.0 + PKCE authentication framework
+- [ ] T007 [P] Configure CI/CD pipeline with constitutional quality gates
+- [ ] T008 [P] Setup design token integration from design system
 
 ---
 
-## Phase 2: Foundational (Blocking Prerequisites)
+## Phase 2: Security & Fraud Integration (Blocking Prerequisites)
 
-**Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
+**Purpose**: Core security and fraud detection infrastructure
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-Examples of foundational tasks (adjust based on your project):
+- [ ] T009 Implement JWT token management and session security
+- [ ] T010 [P] Setup RBAC framework for fraud investigation tools
+- [ ] T011 [P] Implement fraud detection API client with real-time capabilities
+- [ ] T012 Create secure data masking utilities for customer information
+- [ ] T013 [P] Setup input validation and XSS prevention framework
+- [ ] T014 Implement risk indicator display components (base components)
+- [ ] T015 [P] Configure performance monitoring for fraud detection latency
+- [ ] T016 Setup audit logging for fraud investigation activities
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
-
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+**Checkpoint**: Security foundation ready - user story implementation can now begin
 
 ---
 
@@ -76,23 +83,28 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 1 (TDD - NON-NEGOTIABLE) ⚠️
 
 **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T017 [P] [US1] Unit tests for components with 80%+ coverage
+- [ ] T018 [P] [US1] Accessibility tests using axe-core
+- [ ] T019 [P] [US1] Integration tests for fraud API interactions
+- [ ] T020 [P] [US1] End-to-end tests for critical user journeys (Cypress)
+- [ ] T021 [P] [US1] Visual regression tests for design system compliance
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T022 [P] [US1] Create atomic UI components following design system
+- [ ] T023 [P] [US1] Implement fraud data models and TypeScript interfaces
+- [ ] T024 [US1] Build molecular components (forms, cards, navigation)
+- [ ] T025 [US1] Implement real-time fraud indicator integration
+- [ ] T026 [US1] Add WCAG 2.1 AA compliance (ARIA labels, keyboard nav)
+- [ ] T027 [US1] Implement secure data display with masking
+- [ ] T028 [US1] Add performance optimizations for real-time updates
+- [ ] T029 [US1] Conduct usability testing and iterate based on feedback
 
-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+**Checkpoint**: User Story 1 complete with constitutional compliance verified
 
 ---
 
@@ -237,6 +249,47 @@ With multiple developers:
 
 ---
 
+## Constitutional Validation Checklist
+
+Before marking any user story complete, verify:
+
+### Security Validation
+
+- [ ] OAuth 2.0 + PKCE authentication working correctly
+- [ ] RBAC permissions enforced for fraud tools
+- [ ] Customer data properly masked/protected
+- [ ] No sensitive fraud data exposed in client-side code
+- [ ] Input validation and XSS prevention verified
+
+### Accessibility Validation  
+
+- [ ] WCAG 2.1 AA compliance verified with automated tools
+- [ ] Screen reader testing completed
+- [ ] Keyboard navigation working for all interactive elements
+- [ ] Color contrast ratios meet AA standards
+- [ ] Alternative text provided for fraud visualizations
+
+### Design System Validation
+
+- [ ] All components use approved design tokens
+- [ ] No custom styling outside design system
+- [ ] Visual consistency verified across components
+- [ ] Design system version documented and aligned
+
+### Testing Validation (TDD)
+
+- [ ] Unit test coverage ≥80% verified
+- [ ] Integration tests passing for fraud API connections
+- [ ] End-to-end tests covering critical fraud workflows
+- [ ] Performance tests meeting constitutional standards (<3s load, <5s TTI)
+
+### Fraud Domain Validation
+
+- [ ] Real-time fraud indicators displaying correctly
+- [ ] Alert systems integrated and functional
+- [ ] Risk scoring UI updates in real-time
+- [ ] Fraud investigation workflows tested end-to-end
+
 ## Notes
 
 - [P] tasks = different files, no dependencies
@@ -246,5 +299,3 @@ With multiple developers:
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
-
-

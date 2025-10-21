@@ -17,21 +17,65 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: [e.g., TypeScript 5.x, React 18.x, Node.js 20.x or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., React, Next.js, Material-UI, Jest, Cypress or NEEDS CLARIFICATION]  
+**UI Framework**: [e.g., React, Vue.js, Angular, native web components or NEEDS CLARIFICATION]
+**Design System**: [GloboBank Design System compliance required - specify version or NEEDS CLARIFICATION]
+**Testing Strategy**: [Unit tests (70%), Integration tests (20%), E2E tests (10%) or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Modern browsers (Chrome 100+, Firefox 100+, Safari 15+), mobile-responsive or NEEDS CLARIFICATION]
+**Project Type**: [UI application - web/mobile determines source structure]  
+**Performance Goals**: [Initial load <3s, Time to Interactive <5s, CLS <0.1 or NEEDS CLARIFICATION]  
+**Accessibility**: [WCAG 2.1 AA compliance required, screen reader support or NEEDS CLARIFICATION]
+**Security Requirements**: [OAuth 2.0 + PKCE, JWT tokens, RBAC for fraud tools or NEEDS CLARIFICATION]
+**Fraud Integration**: [Real-time detection API, risk indicators, alert systems or NEEDS CLARIFICATION]
+**Scale/Scope**: [e.g., concurrent users, transaction volume, fraud detection latency or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**I. User Experience Excellence**
+
+- [ ] User research plan defined for major interface changes
+- [ ] Usability testing strategy outlined
+- [ ] Customer friction vs. fraud security balance addressed
+- [ ] User journey mapping included for fraud scenarios
+
+**II. Security by Design (NON-NEGOTIABLE)**
+
+- [ ] OAuth 2.0 + PKCE authentication strategy defined
+- [ ] JWT token management approach specified
+- [ ] Input validation and output encoding planned
+- [ ] Fraud data protection measures outlined
+- [ ] RBAC for fraud investigation tools defined
+
+**III. Test-Driven Development (NON-NEGOTIABLE)**
+
+- [ ] TDD approach confirmed (tests → approval → fail → implement)
+- [ ] Test pyramid strategy: 70% unit, 20% integration, 10% e2e
+- [ ] Minimum 80% test coverage target set
+- [ ] Automated testing pipeline planned
+
+**IV. Accessibility Compliance**
+
+- [ ] WCAG 2.1 AA compliance strategy defined
+- [ ] Screen reader compatibility planned
+- [ ] Keyboard navigation approach outlined
+- [ ] Automated accessibility testing included in CI/CD
+
+**V. Design System Consistency**
+
+- [ ] GloboBank Design System version specified
+- [ ] Component library usage planned
+- [ ] Design token integration approach defined
+- [ ] Design system compliance validation method outlined
+
+**VI. Real-Time Fraud Integration**
+
+- [ ] Fraud detection API integration strategy defined
+- [ ] Risk indicator display approach planned
+- [ ] Alert system UI integration outlined
+- [ ] Real-time data update mechanism specified
 
 ## Project Structure
 

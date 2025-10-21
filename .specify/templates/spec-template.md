@@ -77,6 +77,87 @@
 
 ## Requirements *(mandatory)*
 
+---
+
+## Constitutional Requirements *(mandatory)*
+
+### Security Requirements
+
+**Authentication & Authorization:**
+
+- [ ] OAuth 2.0 + PKCE implementation required for customer authentication
+- [ ] JWT tokens with RS256 signing for session management
+- [ ] Role-based access control (RBAC) for fraud investigation tools
+- [ ] Specify which user roles can access which fraud data/features
+
+**Data Protection:**
+
+- [ ] Customer data masking/tokenization strategy per PCI-DSS
+- [ ] Fraud detection data encryption requirements
+- [ ] Specify what sensitive data cannot be exposed in client-side code
+- [ ] Browser storage security requirements (no sensitive data in localStorage)
+
+**Input Validation & Security:**
+
+- [ ] Client-side and server-side input validation requirements
+- [ ] XSS prevention measures for fraud investigation forms
+- [ ] Injection attack prevention for search queries
+- [ ] Session security: timeout, secure cookies, session invalidation
+
+### Accessibility Requirements *(WCAG 2.1 AA - NON-NEGOTIABLE)*
+
+**Screen Reader Compatibility:**
+
+- [ ] All fraud alerts and risk indicators must be announced to screen readers
+- [ ] Complex data visualizations require alternative text descriptions
+- [ ] Form validation errors must be programmatically associable
+
+**Keyboard Navigation:**
+
+- [ ] All interactive elements accessible via keyboard only
+- [ ] Logical tab order through fraud investigation workflows
+- [ ] Keyboard shortcuts for frequent fraud investigation actions
+
+**Visual Accessibility:**
+
+- [ ] Color contrast ratios meet AA standards (4.5:1 normal text, 3:1 large text)
+- [ ] Information not conveyed by color alone (fraud risk indicators)
+- [ ] Text scaling up to 200% without horizontal scroll
+
+### UX Excellence Requirements
+
+**User Research & Testing:**
+
+- [ ] Usability testing required for fraud alert interfaces
+- [ ] User journey validation for legitimate vs. suspicious activity flows
+- [ ] Friction analysis: balance between security and user convenience
+- [ ] Accessibility testing with assistive technology users
+
+**Design System Compliance:**
+
+- [ ] GloboBank Design System version: [specify version]
+- [ ] All components must use approved design tokens
+- [ ] Custom styling requires explicit approval
+- [ ] Design consistency validation across fraud detection features
+
+### Fraud Domain Integration
+
+**Real-Time Features:**
+
+- [ ] Risk indicator display requirements (real-time updates)
+- [ ] Fraud alert notification system integration
+- [ ] Transaction monitoring UI requirements
+- [ ] Customer communication features for fraud verification
+
+**Performance for Fraud Detection:**
+
+- [ ] Real-time data update latency requirements
+- [ ] Dashboard performance under high transaction volumes
+- [ ] Alert response time requirements
+- [ ] Fraud investigation tool performance standards
+
+---
+
 <!--
   ACTION REQUIRED: The content in this section represents placeholders.
   Fill them out with the right functional requirements.
