@@ -1,0 +1,233 @@
+openapi: 3.0.3
+info:
+  title: Fraud Management UI API Integration
+  description: |
+    API integration specification for the Initial Fraud Management UI implementation.
+    
+    This specification defines the client-side API integration points for communicating
+    with the GloboBank Fraud Detection Service. It outlines the TypeScript interfaces,
+    request/response handling, error management, and security considerations required
+    for the fraud verification user interface.
+    
+    **Integration Target**: GloboBank Fraud Detection Service API v1.0.0
+    **Client Type**: React/TypeScript Single Page Application
+    **Authentication**: Initial implementation without authentication (future OAuth 2.0 + PKCE)
+  version: 1.0.0
+  contact:
+    name: GloboBank UI Development Team
+    email: ui-dev@globobank.com
+
+servers:
+  - url: https://api.globobank.com/fraud/v1
+    description: Production fraud detection service
+  - url: https://api-staging.globobank.com/fraud/v1
+    description: Staging fraud detection service
+  - url: http://localhost:8080/fraud/v1
+    description: Local development environment
+
+paths:
+  /risk-assessments:
+    post:
+      summary: Submit Fraud Risk Assessment Request
+      description: |
+        Client-side implementation for submitting transaction fraud verification requests.
+        
+        **UI Integration Points**:
+        - Form submission handler with loading state management
+        - Real-time validation feedback for user input
+        - Error handling with user-friendly message display
+        - Response caching for performance optimization
+        
+        **Performance Requirements**:
+        - Request timeout: 5 seconds (service target: <200ms)
+        - Loading indicator displayed immediately on submission
+        - Form disabled during request processing
+        - Retry logic for transient failures
+      operationId: submitFraudAssessment
+      tags:
+        - Fraud Assessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FraudAssessmentRequest'
+            examples:
+              valid_request:
+                summary: Valid fraud assessment request
+                value:
+                  transactionId: "550e8400-e29b-41d4-a716-446655440000"
+                  creditCardNumber: "4532015112830366"
+      responses:
+        '200':
+          description: Fraud assessment completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FraudAssessmentResponse'
+              examples:
+                clean_transaction:
+                  summary: Clean transaction result
+                  value:
+                    riskScore: 0
+                    fraudulent: false
+                    timestamp: "2025-10-22T14:30:00.000Z"
+                fraudulent_transaction:
+                  summary: Fraudulent transaction detected
+                  value:
+                    riskScore: 1000
+                    fraudulent: true
+                    timestamp: "2025-10-22T14:30:00.000Z"
+        '400':
+          description: Client validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientErrorResponse'
+        '500':
+          description: Server error - display generic message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+        '503':
+          description: Service unavailable - retry with exponential backoff
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+
+components:
+  schemas:
+    FraudAssessmentRequest:
+      type: object
+      required:
+        - transactionId
+        - creditCardNumber
+      properties:
+        transactionId:
+          type: string
+          pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
+          description: UUID format transaction identifier
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        creditCardNumber:
+          type: string
+          pattern: '^[0-9]{13,19}$'
+          description: Credit card number (masked in UI display)
+          example: "4532015112830366"
+      additionalProperties: false
+
+    FraudAssessmentResponse:
+      type: object
+      required:
+        - riskScore
+        - fraudulent
+        - timestamp
+      properties:
+        riskScore:
+          type: integer
+          minimum: 0
+          maximum: 1000
+          description: Risk score (0 = clean, 1000 = confirmed fraud)
+          example: 0
+        fraudulent:
+          type: boolean
+          description: Binary fraud determination
+          example: false
+        timestamp:
+          type: string
+          format: date-time
+          description: Assessment completion timestamp (ISO 8601 UTC)
+          example: "2025-10-22T14:30:00.000Z"
+      additionalProperties: false
+
+    ClientErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+        - timestamp
+        - correlationId
+      properties:
+        error:
+          type: string
+          enum:
+            - VALIDATION_ERROR
+          description: Client-side error type
+          example: "VALIDATION_ERROR"
+        message:
+          type: string
+          description: User-displayable error message
+          example: "Transaction ID must be valid UUID format"
+        timestamp:
+          type: string
+          format: date-time
+          description: Error occurrence timestamp
+          example: "2025-10-22T14:30:00.000Z"
+        correlationId:
+          type: string
+          description: Error tracking identifier
+          example: "req-123e4567-e89b-12d3-a456-426614174000"
+      additionalProperties: false
+
+    ServerErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+        - timestamp
+        - correlationId
+      properties:
+        error:
+          type: string
+          enum:
+            - INTERNAL_ERROR
+            - SERVICE_UNAVAILABLE
+            - RATE_LIMIT_EXCEEDED
+          description: Server-side error type
+          example: "SERVICE_UNAVAILABLE"
+        message:
+          type: string
+          description: Technical error message (for logging only)
+          example: "Fraud detection service temporarily unavailable"
+        timestamp:
+          type: string
+          format: date-time
+          description: Error occurrence timestamp
+          example: "2025-10-22T14:30:00.000Z"
+        correlationId:
+          type: string
+          description: Support correlation identifier
+          example: "req-123e4567-e89b-12d3-a456-426614174000"
+      additionalProperties: false
+
+# TypeScript Interface Generation
+# The following interfaces should be generated from this OpenAPI specification:
+
+# interface FraudAssessmentRequest {
+#   transactionId: string;
+#   creditCardNumber: string;
+# }
+
+# interface FraudAssessmentResponse {
+#   riskScore: number;
+#   fraudulent: boolean;
+#   timestamp: string;
+# }
+
+# interface ApiErrorResponse {
+#   error: string;
+#   message: string;
+#   timestamp: string;
+#   correlationId: string;
+# }
+
+# Client Implementation Notes:
+# 1. Use React Query for API state management and caching
+# 2. Implement exponential backoff retry for 503 errors
+# 3. Display generic error messages for server errors (hide technical details)
+# 4. Log correlation IDs for support investigation
+# 5. Mask credit card numbers in all UI displays and logs
+# 6. Validate inputs client-side before API submission
+# 7. Handle loading states with appropriate UI feedback
+# 8. Implement request timeout and error recovery
